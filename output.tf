@@ -15,7 +15,3 @@ output "bucket_name" {
 output "velero_user" {
   value = aws_iam_user.velero.name
 }
-
-# output "credentials-velero" {
-#   value = template()
-# }
