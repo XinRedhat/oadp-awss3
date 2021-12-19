@@ -2,6 +2,11 @@ provider "aws" {
   region = var.region
 }
 
+locals {
+  velero_user = "${var.bucket}-user"
+  velero_policy = "${var.bucket}-policy"
+}
+
 resource "aws_s3_bucket" "bucket" {
   bucket = var.bucket
   acl = "private"
@@ -9,7 +14,7 @@ resource "aws_s3_bucket" "bucket" {
 }
 
 resource "aws_iam_user" "velero" {
-  name = "${var.bucket}-user"
+  name = local.velero_user
 }
 
 data "template_file" "policy_file" {
@@ -20,7 +25,7 @@ data "template_file" "policy_file" {
 }
 
 resource "aws_iam_user_policy" "velero" {
-  name = "${var.bucket}-policy"
+  name = local.velero_policy
   user = aws_iam_user.velero.name
   policy = data.template_file.policy_file.rendered
 }
