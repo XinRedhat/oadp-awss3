@@ -43,3 +43,13 @@ resource "local_file" "credentials-velero" {
     )
     filename = "credentials-velero"
 }
+
+resource "local_file" "DPA_CR" {
+  content = templatefile("templates/dpa.yml.tpl",
+    {
+      bucket = aws_s3_bucket.bucket.id
+      region = var.region
+    }
+  )
+  filename = "dpa.yml"
+}

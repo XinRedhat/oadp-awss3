@@ -9,7 +9,7 @@ output "aws_access_key_id" {
 }
 
 output "bucket_name" {
-  value = var.bucket
+  value = aws_s3_bucket.bucket.id
 }
 
 output "velero_user" {
